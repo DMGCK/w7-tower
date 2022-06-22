@@ -22,6 +22,15 @@ class EventsService {
   async createEvent(eventData, userId) {
     eventData.creatorId = userId
     const event = await dbContext.TowerEvents.create(eventData)
+
+    //validate the date lol
+    const eventDate =  new Date(event.startDate)
+    const today = new Date()
+
+    if (eventDate < today) {
+      throw new BadRequest('Invalid date')
+    }
+
     return event
   }
   async editEvent(update, eventId, userId) {
