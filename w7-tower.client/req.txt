@@ -1,0 +1,39 @@
+API passes all Postman Tests
+Users Can Register, Login, and Logout
+The Home page can show all Events (pagination allowed)
+19 Requirements
+
+
+At least 3 supported front-end routes, Home, EventDetails, Account
+
+
+Event Card displays title, start date, remaining capacity and location
+
+Styling Indication on event card that an event is canceled or sold out (color, strike-through, etc.)
+
+Events can be sorted or filtered by their type
+
+Events can be created from any page using the Nav Component
+
+Creating a new Event automatically navigates to the EventDetails page
+
+The EventDetails displays all Event properties, the comments for that event, and images of all ticket holders with a title attribute of the ticket holder's name
+
+The owner of an event can cancel it from the EventDetails page
+
+Events can have comments added and removed on the EventDetails page
+
+Comments show their authors name and image
+
+Users can choose to 'attend' an event, creating a relationship (ticket) between user and event, this should decrease the available capacity for the event
+
+From the Account page users can see all the events they are attending (have tickets to)
+
+From the Account page users can delete their ticket for an event, this should increase the remaining capacity for the event
+
+UI prevents users from joining an event (create ticket) if an event is canceled or does not have the available capacity remaining
+
+UI prevents users from creating multiple tickets for an event
+
+
+Application UI adheres to Phase I, and Phase II of the CodeWorks Design Requirements
