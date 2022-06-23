@@ -13,7 +13,7 @@ class EventsService {
   
   async getById(eventId) {
     logger.log('-getById-')
-    const event = await dbContext.TowerEvents.findById(eventId)
+    const event = await dbContext.TowerEvents.findById(eventId).populate('creator')
     if(!event) {
       throw new BadRequest(' Bad ID, try again later.')
     }

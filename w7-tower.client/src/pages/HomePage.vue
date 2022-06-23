@@ -1,7 +1,14 @@
 <template>
 
-<div class="row">
+<div class="row my-3">
   <h1>Events and stuff</h1>
+  <h4>Filter By
+    <span @click="eventFilter = ''" class="bg-white selectable mx-2 border border-secondary p-1">All</span>
+    <span @click="eventFilter = 'concert'" class="bg-white selectable mx-2 border border-secondary p-1">Concert</span>
+    <span @click="eventFilter = 'convention'" class="bg-white selectable mx-2 border border-secondary p-1">Convention</span>
+    <span @click="eventFilter = 'sport'" class="bg-white selectable mx-2 border border-secondary p-1">Sport</span>
+    <span @click="eventFilter = 'digital'" class="bg-white selectable mx-2 border border-secondary p-1">Digital</span>
+  </h4>
 
 </div>
 
@@ -13,13 +20,14 @@
 </template>
 
 <script>
-import { computed, onMounted } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { AppState } from "../AppState"
 import { eventsService} from '../services/EventsService'
 
 export default {
   name: 'Home',
   setup() {
+    const eventFilter = ref('')
     onMounted(async()=> {
      try {
        await eventsService.getAll()
@@ -30,7 +38,8 @@ export default {
     })
 
     return {
-      events: computed(()=> AppState.events)
+      eventFilter,
+      events: computed(()=> AppState.events.filter(x => eventFilter.value ? x.type == eventFilter.value : true))
     }
   }
 }

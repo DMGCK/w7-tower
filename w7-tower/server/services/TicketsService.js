@@ -9,9 +9,6 @@ class TicketsService {
 
   async getTicketsByEvent(eventId) {
     const tickets = await dbContext.Tickets.find({eventId}).populate('account')
-    if(!tickets[0]) {
-      throw new BadRequest('Bad ID -  Tickets By Event Id')
-    }
     return tickets
   }
   async getTicketsByUserId(accountId) {
