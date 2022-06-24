@@ -1,19 +1,22 @@
 <template>
 
 <div class="row my-3">
-  <h1>Events and stuff</h1>
-  <h4>Filter By
-    <span @click="eventFilter = ''" class="bg-white selectable mx-2 border border-secondary p-1">All</span>
-    <span @click="eventFilter = 'concert'" class="bg-white selectable mx-2 border border-secondary p-1">Concert</span>
-    <span @click="eventFilter = 'convention'" class="bg-white selectable mx-2 border border-secondary p-1">Convention</span>
-    <span @click="eventFilter = 'sport'" class="bg-white selectable mx-2 border border-secondary p-1">Sport</span>
-    <span @click="eventFilter = 'digital'" class="bg-white selectable mx-2 border border-secondary p-1">Digital</span>
+  <h1 class="p-3">Events and stuff</h1>
+  <b>Filter By</b>
+  <h4 class="p-2 d-flex">
+    <div  @click="eventFilter = ''" class="filters bg-white selectable mx-2 border border-secondary p-1">All</div >
+    <div  @click="eventFilter = 'concert'" class="filters bg-white selectable mx-2 border border-secondary p-1">Concert</div >
+    <div  @click="eventFilter = 'convention'" class="filters bg-white selectable mx-2 border border-secondary p-1">Convention</div >
+    <div  @click="eventFilter = 'sport'" class="filters bg-white selectable mx-2 border border-secondary p-1">Sport</div >
+    <div  @click="eventFilter = 'digital'" class="filters bg-white selectable mx-2 border border-secondary p-1">Digital</div >
   </h4>
 
 </div>
 
 <div class="row">
-  <Event v-for="e in events" :key="e.id" :event="e"/>
+    <Event v-for="e in events" :key="e.id" :event="e"/>
+
+
 
 </div>
 
@@ -63,4 +66,13 @@ export default {
     }
   }
 }
+
+.filters {
+
+  text-align: center;
+  width: 20%;
+  border-radius: 20px;
+}
+
+
 </style>

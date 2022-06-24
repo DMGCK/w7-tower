@@ -10,14 +10,14 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'About' }" title="Account Tab" class="btn text-success lighten-30 selectable text-uppercase">
             Account
           </router-link>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <div class="d-flex">
-        <div v-if="account.id" class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#modelId">Create an Event
+        <div v-if="account.id" title="Create An Event" class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#modelId">Create an Event
         </div>
         <Login />
       </div>
@@ -72,7 +72,7 @@
             <br/>
             <br/>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" title="Submit form" class="btn btn-primary">Submit</button>
 
 
 

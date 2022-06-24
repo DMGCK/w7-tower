@@ -1,9 +1,19 @@
 <template lang="">
-  <div class="elevation-2 border border-secondary my-2">
-    <Creator :creator="comment.creator"/>
-    {{comment.body}}
+  <div class="elevation-2 border border-secondary my-2 mx-1 rounded bg-white">
+    <div class="d-flex">
+      <Creator :creator="comment.creator"/>
+      <span class="my-4 px-3 align-middle fw-bold">{{comment.creator.name}}</span>
+    </div>
 
-    <div @click="removeComment" v-if="account.id == comment.creatorId" class="btn btn-danger"> Remove Comment</div>
+    <div class="d-flex justify-content-between">
+      <div class="p-2">
+        {{comment.body}}
+
+      </div>
+      <div @click="removeComment" title="Remove comment" v-if="account.id == comment.creatorId" class="btn btn-danger m-2"> Remove Comment</div>
+
+    </div>
+
   </div>
 </template>
 <script>

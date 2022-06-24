@@ -1,22 +1,36 @@
-<template lang="">
-  <div class="col-3">
+<template >
+
+  <div class="col-4 event">
     <div  :class="event.isCanceled ? 'border border-danger' : ''">
       <div @click="getDetails" class="elevation-2 m-1 selectable">
-        <h3 class="p-2">{{event.name}}</h3>
-        <p v-if="!event.isCanceled">{{ new Date(event.startDate).toLocaleDateString()}}</p>
+
+
+
+        <div class="over-container" :style="{'background-image':`url(${event.coverImg})`}">
+          <!-- <img :src="event.coverImg" alt="Event Cover Image" class="img-fluid rounded"/> -->
+         <h3 class="p-3 over-top">{{event.name}}</h3>
+
+        </div>
+
+
+      <div class="p-3 ml-4 bottom-text">
+         <p v-if="!event.isCanceled">When: {{ new Date(event.startDate).toLocaleDateString()}}</p>
+         <p>Where: {{event.location}}</p>
          <p v-if="event.isCanceled">This Event is Cancelled</p>
-        <p>{{event.capacity}} Spots remaining</p>
-        <p>{{event.location}}</p>
-        <span class="text-center">
-          <img :src="event.coverImg" alt="Event Cover Image" class="img-fluid rounded"/>
-        </span>
+         <p v-if="!event.isCanceled">{{event.capacity}} Tickets Available</p>
+
       </div>
-          <div v-if="route.name == 'About'  && event.id" @click="removeTicket" class="btn btn-danger">Remove Ticket</div>
+
+      </div>
+      <div class="d-flex flex-column p-1 px-3">
+        <div v-if="route.name == 'About'  && event.id" @click="removeTicket()" class="btn btn-danger">Remove Ticket</div>
+      </div>
     </div>
   </div>
+  
 </template>
 <script>
-import { computed } from "vue"
+import { computed, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { AppState } from "../AppState"
 import { eventsService } from "../services/EventsService"
@@ -33,7 +47,8 @@ export default {
   setup(props) {
     const router = useRouter()
     const route = useRoute()
-    
+    let show = false
+
 
     return {
       route,
@@ -62,6 +77,45 @@ export default {
   
 }
 </script>
-<style lang="">
+<style scoped lang="scss">
+  .event {
+    height: 65vh !important;
+  }
+
+  .over-container {
+  position: relative;
+  height:25vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  // border-radius: 5%;
   
+}
+
+.over-top {
+  z-index: 50;
+  background-color: rgba(223, 200, 200, 0.347);
+  backdrop-filter:blur(5px);
+  color: white;
+  text-shadow: 1px 1px #252222;
+  // border-radius: 5%;
+
+
+  
+}
+
+.bottom-text {
+  font-style: italic;
+  background-color: #252222;
+  color: white;
+  height: 18vh;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 </style>

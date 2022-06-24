@@ -3,7 +3,7 @@
     <Navbar />
   </header>
   <main>
-    .<div class="container-fluid">
+    <div class="container bg-white">
       
       <router-view />
     </div>
