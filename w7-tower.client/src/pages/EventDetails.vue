@@ -10,7 +10,7 @@
       <p>{{event.description}}</p>
 
       <div @click="cancelEvent" v-if="account.id == event.creatorId && event.isCanceled != true" class="btn btn-danger">Cancel this event</div>
-      <div @click="attendEvent" v-if="!event.isCanceled && event.capacity != 0 " class="btn btn-warning m-1 border border-secondary">Attend this event</div>
+      <div @click="attendEvent" v-if="!event.isCanceled && event.capacity != 0 && !isAttending" class="btn btn-warning m-1 border border-secondary">Attend this event</div>
 
       <p v-if="event.isCanceled"> This Event is Cancelled</p>
 
@@ -100,7 +100,6 @@ export default {
       async attendEvent() {
        try {
          await eventsService.attendEvent(route.params.id, AppState.account.id)
-         AppState.activeEvent.capacity -= 1
        } catch (error) {
        Pop.toast(error, 'error')
        console.error(error);

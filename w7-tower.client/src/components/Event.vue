@@ -11,7 +11,7 @@
           <img :src="event.coverImg" alt="Event Cover Image" class="img-fluid rounded"/>
         </span>
       </div>
-          <div v-if="route.name == 'About'" @click="removeTicket" class="btn btn-danger">Remove Ticket</div>
+          <div v-if="route.name == 'About'  && event.id" @click="removeTicket" class="btn btn-danger">Remove Ticket</div>
     </div>
   </div>
 </template>

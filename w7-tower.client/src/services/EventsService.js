@@ -1,5 +1,6 @@
 import { applyStyles } from "@popperjs/core"
 import { AppState } from "../AppState"
+import Pop from "../utils/Pop"
 import { api } from "./AxiosService"
 
 
@@ -37,6 +38,7 @@ class EventsService {
     console.log('-getEventsByAccount-', res.data)
     AppState.events = res.data.map(x => x.event)
     AppState.activeTickets = res.data
+    return res.data
   }
 
   async getCommentsByEvent(eventId) {
@@ -49,9 +51,18 @@ class EventsService {
   }
 
   async attendEvent(eventId, accountId) {
-    const res = await api.post(`api/tickets`,  {eventId, accountId})
-    console.log('-attendEvent-', res.data); 
-    AppState.activeTickets = [res.data, ...AppState.activeTickets]
+    const tickets = await this.getEventsByAccount(accountId)
+    let found = tickets?.find(x => x.eventId == eventId)
+    console.log(tickets, found, eventId) 
+  if (found?.eventId != undefined) {
+    
+    return Pop.toast('You Already Have a Ticket', 'error')
+  }
+  this.getTicketsByEvent(eventId)
+  const res = await api.post(`api/tickets`,  {eventId, accountId})
+  console.log('-attendEvent-', res.data); 
+  AppState.activeTickets = [res.data, ...AppState.activeTickets]
+  AppState.activeEvent.capacity -= 1
     
   }
 
