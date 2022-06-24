@@ -8,11 +8,14 @@
     <div class="d-flex justify-content-between">
       <div class="p-2">
         {{comment.body}}
+        </div>
+
+      <div class="d-flex">
+        <p class="my-3">{{new Date(comment.createdAt).toLocaleDateString()}}</p>
+        <div @click="removeComment" title="Remove comment" v-if="account.id == comment.creatorId" class="btn btn-danger m-2"> Remove Comment</div>
+      </div>
 
       </div>
-      <div @click="removeComment" title="Remove comment" v-if="account.id == comment.creatorId" class="btn btn-danger m-2"> Remove Comment</div>
-
-    </div>
 
   </div>
 </template>

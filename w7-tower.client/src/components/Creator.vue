@@ -15,7 +15,7 @@ export default {
   
 }
 </script>
-<style lang="scss">
+<style scoped lang="scss">
   .creator {
     max-height: 5vh;
     border-radius: 50%;
