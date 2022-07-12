@@ -17,7 +17,7 @@ class TicketsService {
     return tickets
   }
   async createTicket(accountId, ticketData) {
-    logger.log(ticketData, accountId)
+    logger.log(ticketData, accountId);
     ticketData.accountId = accountId
     // if (ticketData.accountId != accountId) {
     //   throw new BadRequest('You arent the rifght person')
@@ -27,13 +27,13 @@ class TicketsService {
     
     logger.log('event fail', event)
     if (event.isCanceled == true || event.capacity <= 0) {
-    throw new BadRequest('No Tickets available for this event')
+      throw new BadRequest('No Tickets available for this event')
     }
 
     logger.log(userTickets, 'user tickets fail')
     if (userTickets.find(x => x.eventId == ticketData.eventId)) {
       //already has a ticket
-    throw new BadRequest('already own this ticket')
+      throw new BadRequest('already own this ticket')
     }
     
     // decrease capacity of event by one
@@ -47,16 +47,16 @@ class TicketsService {
   }
 
   async removeTicket(ticketId, accountId) {
-    const original =await dbContext.Tickets.findById(ticketId)
+    const original = await dbContext.Tickets.findById(ticketId)
     if(original.accountId != accountId) {
       throw new BadRequest('not your record fool')
     }
 
     const event = await eventsService.getById(original.eventId)
     event.capacity += 1
-   await event.save()
+    await event.save();
 
-   await original.remove()
+    await original.remove();
     return 'die'
   }
   
