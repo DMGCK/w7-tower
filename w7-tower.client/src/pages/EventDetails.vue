@@ -1,10 +1,10 @@
 <template lang="">
   <div class="row p-2">
     <div class="col-12 d-flex flex-column  my-2">
-      <div class="over-container d-flex flex-column justify-content-between mb-4" :style="{'background-image': `url(${event.coverImg})`}">
+      <div class="over-container-details d-flex flex-column justify-content-between mb-4" :style="{'background-image': `url(${event.coverImg})`}">
         <!-- <img :src="event.coverImg" alt="Event CoverImage" class="img rounded"/> -->
 
-        <div class="over-top d-flex justify-content-between">
+        <div class="over-top-details d-flex justify-content-between">
           <h1 class=" p-4 ">{{event.name}}</h1> 
           <div class="d-flex flex-column justify-content-center p-2">
             <div title="Cancel This Event" @click="cancelEvent" v-if="account.id == event.creatorId && event.isCanceled != true" class="btn btn-danger">Cancel this event</div>
@@ -13,7 +13,7 @@
           </div>
 
         </div>
-        <div class="over-bottom p-3 d-flex">
+        <div class="over-bottom-details p-3 d-flex">
           <p class="my-4 px-3 align-middle">{{new Date(event.startDate).toLocaleDateString()}}</p>
           <p class="my-4 px-3 align-middle">Type: {{event.type}}</p>
           <div class="d-flex">
@@ -69,22 +69,22 @@ export default {
 
   setup() {
     const route = useRoute()
-    const comment = ref({ eventId: `${route.params.id}`})
+    const comment = ref({ eventId: `${route.params.id}` })
     watchEffect(async () => {
-     try {
-       await eventsService.getOne(route.params.id)
-       await eventsService.getTicketsByEvent(route.params.id)
-       await eventsService.getCommentsByEvent(route.params.id)
-     } catch (error) {
-     Pop.toast(error, 'error')
-     console.error(error);
-     }
+      try {
+        await eventsService.getOne(route.params.id)
+        await eventsService.getTicketsByEvent(route.params.id)
+        await eventsService.getCommentsByEvent(route.params.id)
+      } catch (error) {
+        Pop.toast(error, 'error')
+        console.error(error);
+      }
     });
 
     return {
       comment,
-      event: computed(()=> AppState.activeEvent),
-      tickets: computed(()=> AppState.activeTickets),
+      event: computed(() => AppState.activeEvent),
+      tickets: computed(() => AppState.activeTickets),
       comments: computed(() => AppState.comments),
       account: computed(() => AppState.account),
       isAttending: computed(() => {
@@ -94,7 +94,7 @@ export default {
         }
         return true
       }),
-      
+
 
 
       async postComment() {
@@ -108,26 +108,27 @@ export default {
       },
 
       async cancelEvent() {
-       try {
-         await eventsService.cancelEvent(route.params.id) 
-         Pop.toast('Event Cancelled')
-       } catch (error) {
-       Pop.toast(error, 'error')
-       console.error(error);
-       }
+        try {
+          await eventsService.cancelEvent(route.params.id)
+          Pop.toast('Event Cancelled')
+          AppState.activeEvent.isCanceled = true;
+        } catch (error) {
+          Pop.toast(error, 'error')
+          console.error(error);
+        }
       },
 
       async attendEvent() {
-       try {
-         await eventsService.attendEvent(route.params.id, AppState.account.id)
-       } catch (error) {
-       Pop.toast(error, 'error')
-       console.error(error);
-       }
+        try {
+          await eventsService.attendEvent(route.params.id, AppState.account.id)
+        } catch (error) {
+          Pop.toast(error, 'error')
+          console.error(error);
+        }
       }
     }
   }
-  
+
 }
 </script>
 <style scoped lang="scss">
@@ -140,43 +141,42 @@ export default {
 
 }
 
-.over-container {
+.over-container-details {
   position: relative;
   height: 40vw;
   background-repeat: no-repeat;
   background-size: cover;
   // border-radius: 5%;
-  
+
 }
 
-.over-top {
+.over-top-details {
   z-index: 50;
   background-color: rgba(87, 57, 57, 0.347);
-  backdrop-filter:blur(5px);
+  backdrop-filter: blur(5px);
   color: white;
   text-shadow: 1px 1px #252222;
   // border-radius: 5%;
 
 
-  
+
 }
 
-.over-bottom {
+.over-bottom-details {
   z-index: 50;
   background-color: rgba(87, 57, 57, 0.347);
-  backdrop-filter:blur(5px);
+  backdrop-filter: blur(5px);
   color: white;
   text-shadow: 2px 2px #252222;
   // border-radius: 5%;
 
 
-  
+
 }
 
 .shadowkiller {
-  
-   text-shadow: 0px 0px #25222200 !important;
+
+  text-shadow: 0px 0px #25222200 !important;
 
 }
-  
 </style>

@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-    The Tower
+      The Tower
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,14 +10,16 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" title="Account Tab" class="btn text-success lighten-30 selectable text-uppercase">
+          <router-link v-if="account?.id != null" :to="{ name: 'About' }" title="Account Tab"
+            class="btn text-success lighten-30 selectable text-uppercase">
             Account
           </router-link>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <div class="d-flex">
-        <div v-if="account.id" title="Create An Event" class="btn btn-info m-2" data-bs-toggle="modal" data-bs-target="#modelId">Create an Event
+        <div v-if="account.id" title="Create An Event" class="btn btn-info m-2" data-bs-toggle="modal"
+          data-bs-target="#modelId">Create an Event
         </div>
         <Login />
       </div>
@@ -32,47 +34,48 @@
             <h1>Create An Event</h1>
 
             <div class="mb-3">
-              <input type="text" v-model="eventForm.name" required class="form-control" name="eventName" id="eventName" aria-describedby="helpId"
-                placeholder="Event Name">
+              <input type="text" v-model="eventForm.name" required class="form-control" name="eventName" id="eventName"
+                aria-describedby="helpId" placeholder="Event Name">
             </div>
 
             <div class="mb-3">
-              <textarea v-model="eventForm.description" required class="form-control" name="description" id="description" placeholder="Description"
-                rows="3"></textarea>
+              <textarea v-model="eventForm.description" required class="form-control" name="description"
+                id="description" placeholder="Description" rows="3"></textarea>
             </div>
 
             <div class="mb-3">
-              <input type="text" v-model="eventForm.location" required class="form-control" name="location" id="location" aria-describedby="helpId"
-                placeholder="Location">
+              <input type="text" v-model="eventForm.location" required class="form-control" name="location"
+                id="location" aria-describedby="helpId" placeholder="Location">
             </div>
 
             <div class="mb-3">
-              <input type="number" v-model="eventForm.capacity" required class="form-control" name="capacity" id="capacity" aria-describedby="helpId"
-                placeholder="capacity">
+              <input type="number" v-model="eventForm.capacity" required class="form-control" name="capacity"
+                id="capacity" aria-describedby="helpId" placeholder="capacity">
             </div>
 
             <div class="mb-3">
-              <input type="date" v-model="eventForm.startDate" required class="form-control" name="startDate" id="startDate" aria-describedby="helpId"
-                placeholder="startDate">
+              <input type="date" v-model="eventForm.startDate" required class="form-control" name="startDate"
+                id="startDate" aria-describedby="helpId" placeholder="startDate">
             </div>
 
             <div class="mb-3">
-              <input type="text" v-model="eventForm.coverImg" required class="form-control" name="coverImg" id="coverImg" aria-describedby="helpId"
-                placeholder="coverImg">
+              <input type="text" v-model="eventForm.coverImg" required class="form-control" name="coverImg"
+                id="coverImg" aria-describedby="helpId" placeholder="coverImg">
             </div>
 
             <!-- type -->
-            <label class="mx-2" for="cars">Choose an event type:   </label>
-            <select id="cars" name="cars">
+            <label class="mx-2" for="cars">Choose an event type: </label>
+            <select v-model="eventForm.type" id="cars" name="cars">
               <option value="concert">concert</option>
               <option value="convention">convention</option>
               <option value="sport">sport</option>
               <option value="digital">digital</option>
             </select>
-            <br/>
-            <br/>
+            <br />
+            <br />
 
-            <button type="submit" title="Submit form" class="btn btn-primary">Submit</button>
+            <button type="submit" title="Submit form" class="btn btn-primary" data-bs-toggle="modal"
+              data-bs-target="#modelId">Submit</button>
 
 
 
@@ -97,7 +100,7 @@ export default {
     const eventForm = ref({})
     return {
       eventForm,
-      account: computed(()=> AppState.account),
+      account: computed(() => AppState.account),
 
       async createEvent() {
         console.log(eventForm.value)
@@ -115,7 +118,7 @@ export default {
           console.error(error)
           Pop.toast(error, 'error')
         }
-        
+
       }
     };
   },
@@ -126,9 +129,11 @@ export default {
 a:hover {
   text-decoration: none;
 }
+
 .nav-link {
   text-transform: uppercase;
 }
+
 .navbar-nav .router-link-exact-active {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;

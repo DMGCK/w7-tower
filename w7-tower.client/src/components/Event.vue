@@ -1,33 +1,35 @@
 <template >
 
   <div class="col-4 event">
-    <div  :class="event.isCanceled ? 'border border-danger' : ''">
+    <div>
       <div @click="getDetails" class="elevation-2 m-1 selectable">
 
 
 
-        <div class="over-container" :style="{'background-image':`url(${event.coverImg})`}">
+        <div class="over-container" :style="{ 'background-image': `url(${event.coverImg})` }">
           <!-- <img :src="event.coverImg" alt="Event Cover Image" class="img-fluid rounded"/> -->
-         <h3 class="p-3 over-top">{{event.name}}</h3>
+          <h3 :class="event.isCanceled ? 'border border-danger p-3 over-top cancelled' : 'p-3 over-top'">{{ event.name
+          }}</h3>
 
         </div>
 
 
-      <div class="p-3 ml-4 bottom-text">
-         <p v-if="!event.isCanceled">When: {{ new Date(event.startDate).toLocaleDateString()}}</p>
-         <p>Where: {{event.location}}</p>
-         <p v-if="event.isCanceled">This Event is Cancelled</p>
-         <p v-if="!event.isCanceled">{{event.capacity}} Tickets Available</p>
+        <div class="p-3 ml-4 bottom-text">
+          <p v-if="!event.isCanceled">When: {{ new Date(event.startDate).toLocaleDateString() }}</p>
+          <p>Where: {{ event.location }}</p>
+          <p v-if="event.isCanceled">This Event is Cancelled</p>
+          <p v-if="!event.isCanceled">{{ event.capacity }} Tickets Available</p>
 
-      </div>
+        </div>
 
       </div>
       <div class="d-flex flex-column p-1 px-3">
-        <div v-if="route.name == 'About'  && event.id" @click="removeTicket()" class="btn btn-danger">Remove Ticket</div>
+        <div v-if="route.name == 'About' && event.id" @click="removeTicket()" class="btn btn-danger">Remove Ticket
+        </div>
       </div>
     </div>
   </div>
-  
+
 </template>
 <script>
 import { computed, onMounted } from "vue"
@@ -55,7 +57,7 @@ export default {
       getDetails() {
         console.log(props.event.id)
         router.push({
-          name: 'Event Details' ,
+          name: 'Event Details',
           params: {
             id: props.event.id
           }
@@ -74,33 +76,38 @@ export default {
       }
     }
   }
-  
+
 }
 </script>
 <style scoped lang="scss">
-  .event {
-    height: 65vh !important;
-  }
+.event {
+  // max-height: 35vh !important;
+  margin-bottom: 5vh;
 
-  .over-container {
+}
+
+.cancelled {
+  color: red;
+}
+
+.over-container {
   position: relative;
-  height:25vw;
+  height: 50vh;
   background-repeat: no-repeat;
   background-size: cover;
+
   // border-radius: 5%;
-  
+
 }
 
 .over-top {
+  margin-bottom: 4rem;
   z-index: 50;
   background-color: rgba(223, 200, 200, 0.347);
-  backdrop-filter:blur(5px);
+  backdrop-filter: blur(5px);
   color: white;
   text-shadow: 1px 1px #252222;
   // border-radius: 5%;
-
-
-  
 }
 
 .bottom-text {
@@ -109,6 +116,7 @@ export default {
   color: white;
   height: 18vh;
 }
+
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;
